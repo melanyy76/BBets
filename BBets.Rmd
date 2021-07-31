@@ -41,21 +41,27 @@ bdays <- 1:365
 class <- sample(bdays, size = 35, replace = TRUE, prob = NULL)
 sort(class)
 betwin <- unique(class) 
+brownlowbucks = 0
+nCLASS = 1000
 ```
 
 
 ```{r}
-browlowbucks = 0
+for (i in 1:nCLASS){
+class <- sample(bdays, size = 35, replace = TRUE, prob = NULL)
 length(class)
+betwin = unique(class)
 length(betwin)
-brownlowbucks <- if(length(class)- length(betwin) > 0) brownlowbucks =  brownlowbucks+1 else brownlowbucks-2
+brownlowbucks <- if(length(class)- length(betwin) > 0) brownlowbucks =  brownlowbucks+1 else brownlowbucks = brownlowbucks-2
+}
+brownlowbucks
 ```
-
 
 
 
 # What size of class makes the 2:1 bet fair?  
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlows betting profits!-->
+
 
 
 # In the class and payoff as described what is a 95% confidence interval for Brownlow's earnings?
