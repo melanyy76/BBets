@@ -11,8 +11,9 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 require(tidyverse)
-require(tidyverse)
+require(tigerstats)
 require(knitr)
+source(file = "BrLw.R")
 ```
 
 
@@ -30,55 +31,120 @@ There are 3 questions and there should be at least 3 separate commits, at least 
 2. For what size class is a 2:1 odds bet fair.
 3. How much money would Brownlow be expected to end up with if the bets went as described.
 
+## Our strategy is to build a Function 
+
+The function will be given a class_size, odds, and number_of_bets made and will give you back how much Browlows earnings were. We will use it to answer our three questions below.
+
 # What are the fair odds  
+
 
 
 <!--Decide on your methods:  In this section explain the approach you will take to attack the issue --- how will you decide on a likely estimate of professor Brownlow's earnings or losses after 637 bets. Also explain how you construct a 95% confidence interval about your estimate of his winnings !-->
 
 
-```{r}
-setsize = 35
-odds = 3.7
-```
+We are going to use the BrLw function that we wrote. The function inputs the number of students in a class, the odds that brownlow is giving, and lastly the number of times Brownlow teaches such a class.
 
+What comes back out is how much money Brownlow made.
 
-```{r}
-bdays <- 1:365
-class <- sample(bdays, size = setsize, replace = TRUE, prob = NULL)
-sort(class)
-betwin <- unique(class) 
-brownlowbucks = 0
-nCLASS = 1000
-```
 
 
 ```{r}
-for (i in 1:nCLASS){
-class <- sample(bdays, size = setsize, replace = TRUE, prob = NULL)
-length(class)
-betwin = unique(class)
-length(betwin)
-brownlowbucks <- if(length(class)- length(betwin) > 0) brownlowbucks =  brownlowbucks+1 else brownlowbucks = brownlowbucks-odds
-}
-brownlowbucks
+BrLw(35,4.35,637)
 ```
 
 ```{r}
+bank=numeric()
+for (j in 1:500) {
+  
 
+bank[j] = BrLw(35,4.35,637)}
 ```
+
+```{r}
+hist(bank)
+favstats(bank)
+sorted<-sort(bank)
+print(sorted[12])
+print(sorted[488])
+```
+
+
 
 
 # What size of class makes the 2:1 bet fair?  
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlows betting profits!-->
 
+```{r}
+BrLw(29,2,637)
+```
+
+```{r}
+bank=numeric()
+for (j in 1:500) {
+  
+
+bank[j] = BrLw(29,2,637)}
+```
+
+```{r}
+hist(bank)
+favstats(bank)
+sorted<-sort(bank)
+print(sorted[12])
+print(sorted[488])
+```
+
+```{r}
+BrLw(35,2,637)
+```
+
+```{r}
+bank=numeric()
+for (j in 1:1000) {
+  
+
+bank[j] = BrLw(35,2,637)}
+```
+
+```{r}
+hist(bank)
+favstats(bank)
+sorted<-sort(bank)
+print(sorted[25])
+print(sorted[975])
+```
 
 
 # In the class and payoff as described what is a 95% confidence interval for Brownlow's earnings?
   
 <!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
 
+```{r}
+bank=numeric()
+for (j in 1:1000) {
+  
+
+bank[j] = BrLw(35,2,637)}
+```
+
+
+```{r}
+hist(bank)
+favstats(bank)
+sorted<-sort(bank)
+print(sorted[25])
+print(sorted[975])
+```
+
+
+We will run this test 1000 times in order to get a 95% confidence interval. From this we will sort from low to high and take the 25th one and 975th one to get the middle 95%.
+
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If professor Brownlow is consistantly making or losing money how could he change his payout so that his profits center on zero?  Also discuss what size his class should be in order to have his current scheme balance at zero profit.!-->
+
+According to the charts if the odds were submitted at 4.35 with a class size of 35 and 500 trys, brownlowbucks estimated mean would be of 4.87, and a min of -128.05. While the histogram bar graph estimate an average of 80 brownlowbucks. In the next test run where we switched the odds to become 2, in class size of 29 with 637 trys shows a mean of 29.19 and a min of -65, bar graphs representing the average about 100. And in the last attempt with 1000 trys, and a class size of 35 with the odds of 2, showed the mean of 282, and a min of 166 and bar graphs represnting an average of about 200. 
+Professor Brownlow is consistantly making money.For him to gain zero profit it should be 35 students in order to have zero profit since he was already losing money in that trial.
+
 
