@@ -46,10 +46,9 @@ We are going to use the BrLw function that we wrote. The function inputs the num
 
 What comes back out is how much money Brownlow made.
 
-
-
 ```{r}
-BrLw(35,4.35,637)
+profit <- BrLw(35,4.35,673)
+print(profit)
 ```
 
 ```{r}
